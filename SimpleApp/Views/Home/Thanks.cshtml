@@ -1,0 +1,49 @@
+﻿@model SimpleApp.Models.GuestResponse
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <title>Thanks</title>
+</head>
+<body>
+    @{
+        try
+        {
+            WebMail.SmtpServer = "smtp.example.com";
+            WebMail.SmtpPort = 587;
+            WebMail.EnableSsl = true;
+            WebMail.UserName = "mySmtpUsername";
+            WebMail.Password = "mySmtpPassword";
+            WebMail.From = "rsvps2example.com";
+
+            WebMail.Send("partyorganizer@example.com", "RSVP Notification", Model.Name + "is" + ((Model.WillAttend ?? false) ? "" : "not") + "attending");
+        }
+        catch (Exception)
+        {
+
+            @:<b> Sorry - we couldn't send the email to confirm your RSVP. </b>
+        }
+    }
+
+    <div>
+        <h1 class="text-center">Thank you, @Model.Name</h1>
+        <div class="lead">
+            @if (Model.WillAttend == true)
+            {
+                @:Its great that you're coming
+        }
+            else
+            {
+                @:Sorry to hear that
+        }
+        </div>
+    </div>
+</body>
+</html>

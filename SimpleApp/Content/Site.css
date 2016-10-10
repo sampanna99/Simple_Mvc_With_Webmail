@@ -9,6 +9,11 @@
     padding-right: 15px;
 }
 
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
